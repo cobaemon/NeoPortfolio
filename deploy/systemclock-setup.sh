@@ -59,7 +59,7 @@ if command -v systemctl &> /dev/null; then
         $CHRONY_SERVICE
     fi
 else
-    echo -e "${BRIGHT_YELLOW}systemctl is not available. Starting Chrony manually...${RESET}"
+    echo -e "${BRIGHT_BLUE}systemctl is not available. Starting Chrony manually...${RESET}"
     $CHRONY_SERVICE
 fi
 

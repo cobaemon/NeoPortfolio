@@ -25,6 +25,9 @@ chmod +x "${SCRIPT_DIR}/deploy/nginx-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/certbot-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/encode-certs.sh"
 chmod +x "${SCRIPT_DIR}/deploy/update-certs-and-restart-container.sh"
+chmod +x "${SCRIPT_DIR}/deploy/aws-cli-setup.sh"
+chmod +x "${SCRIPT_DIR}/deploy/update-route53-record.sh"
+chmod +x "${SCRIPT_DIR}/deploy/finalization.sh"
 
 # 初期化
 bash "${SCRIPT_DIR}/deploy/initialization.sh"
@@ -46,5 +49,11 @@ bash "${SCRIPT_DIR}/deploy/nginx-setup.sh"
 
 # certbotの設定
 bash "${SCRIPT_DIR}/deploy/certbot-setup.sh"
+
+# AWS CLIの設定
+bash "${SCRIPT_DIR}/deploy/aws-cli-setup.sh"
+
+# 最終処理
+bash "${SCRIPT_DIR}/deploy/finalization.sh"
 
 echo -e "${BRIGHT_GREEN}Deployment completed successfully.${RESET}"

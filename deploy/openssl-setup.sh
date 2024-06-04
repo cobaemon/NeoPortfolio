@@ -18,7 +18,7 @@ echo -e "${BRIGHT_BLUE}Openssl Setup Start.${RESET}"
 
 # 環境変数ファイルの読み込み
 if [ -f "$ENV_FILE" ]; then
-    echo -e "${BRIGHT_YELLOW}Loading environment variables from ${ENV_FILE}...${RESET}"
+    echo -e "${BRIGHT_BLUE}Loading environment variables from ${ENV_FILE}...${RESET}"
     set -a
     source "$ENV_FILE"
     set +a
@@ -57,22 +57,22 @@ fi
 # OpenSSLのダウンロードとインストール
 OPENSSL_DIR="/usr/local/src/openssl-$OPENSSL_VERSION"
 if [ ! -d "$OPENSSL_DIR" ]; then
-    echo -e "${BRIGHT_YELLOW}Downloading OpenSSL $OPENSSL_VERSION...${RESET}"
+    echo -e "${BRIGHT_BLUE}Downloading OpenSSL $OPENSSL_VERSION...${RESET}"
     cd /usr/local/src
     wget https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
     tar -zxf openssl-$OPENSSL_VERSION.tar.gz
     cd openssl-$OPENSSL_VERSION
 
-    echo -e "${BRIGHT_YELLOW}Installing OpenSSL $OPENSSL_VERSION...${RESET}"
+    echo -e "${BRIGHT_BLUE}Installing OpenSSL $OPENSSL_VERSION...${RESET}"
     ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl
     make
     make install
 
-    echo -e "${BRIGHT_YELLOW}Updating symbolic links...${RESET}"
+    echo -e "${BRIGHT_BLUE}Updating symbolic links...${RESET}"
     mv /usr/bin/openssl /usr/bin/openssl.bak || true
     ln -s /usr/local/openssl/bin/openssl /usr/bin/openssl
 
-    echo -e "${BRIGHT_YELLOW}Updating library path...${RESET}"
+    echo -e "${BRIGHT_BLUE}Updating library path...${RESET}"
     echo "/usr/local/openssl/lib" | tee -a /etc/ld.so.conf.d/openssl-$OPENSSL_VERSION.conf
     ldconfig
 else

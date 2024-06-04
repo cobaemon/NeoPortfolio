@@ -18,7 +18,7 @@ echo -e "${BRIGHT_BLUE}Certbot Setup Start.${RESET}"
 
 # 環境変数ファイルの読み込み
 if [ -f "$ENV_FILE" ]; then
-    echo -e "${BRIGHT_YELLOW}Loading environment variables from ${ENV_FILE}...${RESET}"
+    echo -e "${BRIGHT_BLUE}Loading environment variables from ${ENV_FILE}...${RESET}"
     set -a
     source "$ENV_FILE"
     set +a
@@ -47,14 +47,14 @@ $PKG_MANAGER update -y
 
 # Certbotのインストール
 if ! command -v certbot &> /dev/null; then
-    echo -e "${BRIGHT_YELLOW}Certbot not found. Installing Certbot...${RESET}"
+    echo -e "${BRIGHT_BLUE}Certbot not found. Installing Certbot...${RESET}"
     if [ "$PKG_MANAGER" = "yum" ]; then
         $PKG_MANAGER install -y epel-release
         $PKG_MANAGER install -y certbot python2-certbot-nginx
     elif [ "$PKG_MANAGER" = "apt" ]; then
         $PKG_MANAGER install -y certbot python3-certbot-nginx
     fi
-    echo -e "${BRIGHT_GREEN}Certbot installation completed.${RESET}"
+    echo -e "${BRIGHT_BLUE}Certbot installation completed.${RESET}"
 else
     echo -e "${BRIGHT_YELLOW}Certbot is already installed.${RESET}"
 fi
@@ -64,10 +64,10 @@ echo -e "${BRIGHT_BLUE}Checking for existing certificates...${RESET}"
 CERTBOT_OUTPUT=$(certbot certificates --cert-name "$DOMAIN_NAME" 2>&1)
 
 if echo "$CERTBOT_OUTPUT" | grep -q "No certificates found"; then
-    echo -e "${BRIGHT_YELLOW}Obtaining new certificate for ${DOMAIN_NAME}...${RESET}"
+    echo -e "${BRIGHT_BLUE}Obtaining new certificate for ${DOMAIN_NAME}...${RESET}"
     certbot --nginx -d "$DOMAIN_NAME" --non-interactive --agree-tos
 else
-    echo -e "${BRIGHT_YELLOW}Updating existing certificate for ${DOMAIN_NAME}...${RESET}"
+    echo -e "${BRIGHT_BLUE}Updating existing certificate for ${DOMAIN_NAME}...${RESET}"
     certbot renew --cert-name "$DOMAIN_NAME"
 fi
 

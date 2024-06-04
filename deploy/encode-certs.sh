@@ -38,7 +38,7 @@ else
 fi
 
 # Base64エンコード
-echo -e "${BRIGHT_YELLOW}Encoding certificate and key...${RESET}"
+echo -e "${BRIGHT_BLUE}Encoding certificate and key...${RESET}"
 if [ -f "$CERT_PATH" ]; then
     ENCODED_CERT=$(base64 -w 0 "$CERT_PATH")
 else
@@ -54,7 +54,7 @@ else
 fi
 
 # .envファイルの特定の行を更新
-echo -e "${BRIGHT_YELLOW}Updating .env file with encoded certificate and key...${RESET}"
+echo -e "${BRIGHT_BLUE}Updating .env file with encoded certificate and key...${RESET}"
 sed -i "s|^SSL_CERTIFICATE=.*$|SSL_CERTIFICATE=$ENCODED_CERT|" "$CERTS_ENV_FILE"
 sed -i "s|^SSL_CERTIFICATE_KEY=.*$|SSL_CERTIFICATE_KEY=$ENCODED_KEY|" "$CERTS_ENV_FILE"
 

@@ -46,7 +46,7 @@ $PKG_MANAGER update -y
 
 # Dockerのインストール
 if ! command -v docker &> /dev/null; then
-    echo -e "${BRIGHT_YELLOW}Docker not found. Installing Docker...${RESET}"
+    echo -e "${BRIGHT_BLUE}Docker not found. Installing Docker...${RESET}"
     if [ "$PKG_MANAGER" = "yum" ]; then
         $PKG_MANAGER install -y yum-utils
         yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -60,7 +60,7 @@ if ! command -v docker &> /dev/null; then
     fi
     systemctl start docker
     systemctl enable docker
-    echo -e "${BRIGHT_GREEN}Docker installation completed.${RESET}"
+    echo -e "${BRIGHT_BLUE}Docker installation completed.${RESET}"
 else
     echo -e "${BRIGHT_YELLOW}Docker is already installed.${RESET}"
 fi
