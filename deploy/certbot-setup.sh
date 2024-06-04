@@ -61,12 +61,14 @@ fi
 
 # 証明書の存在を確認
 echo -e "${BRIGHT_BLUE}Checking for existing certificates...${RESET}"
-if certbot certificates --cert-name "$DOMAIN_NAME" > /dev/null 2>&1; then
-    echo -e "${BRIGHT_YELLOW}Updating existing certificate for ${DOMAIN_NAME}...${RESET}"
-    certbot renew --cert-name "$DOMAIN_NAME"
-else
+CERTBOT_OUTPUT=$(certbot certificates --cert-name "$DOMAIN_NAME" 2>&1)
+
+if echo "$CERTBOT_OUTPUT" | grep -q "No certificates found"; then
     echo -e "${BRIGHT_YELLOW}Obtaining new certificate for ${DOMAIN_NAME}...${RESET}"
     certbot --nginx -d "$DOMAIN_NAME" --non-interactive --agree-tos
+else
+    echo -e "${BRIGHT_YELLOW}Updating existing certificate for ${DOMAIN_NAME}...${RESET}"
+    certbot renew --cert-name "$DOMAIN_NAME"
 fi
 
 # 証明書を暗号化し.envを更新
