@@ -18,7 +18,7 @@ echo -e "${BRIGHT_BLUE}Nginx Setup Start.${RESET}"
 
 # 環境変数ファイルの読み込み
 if [ -f "$ENV_FILE" ]; then
-    echo -e "${BRIGHT_YELLOW}Loading environment variables from ${ENV_FILE}...${RESET}"
+    echo -e "${BRIGHT_BLUE}Loading environment variables from ${ENV_FILE}...${RESET}"
     set -a
     source "$ENV_FILE"
     set +a
@@ -47,7 +47,7 @@ $PKG_MANAGER update -y
 
 # 既存のパッケージ版Nginxを削除
 if command -v nginx &> /dev/null; then
-    echo -e "${BRIGHT_YELLOW}Removing existing package version of Nginx...${RESET}"
+    echo -e "${BRIGHT_BLUE}Removing existing package version of Nginx...${RESET}"
     $PKG_MANAGER remove -y nginx
 fi
 
@@ -60,23 +60,15 @@ elif [ "$OS" = "centos" ]; then
     $PKG_MANAGER install -y pcre pcre-devel zlib zlib-devel make
 fi
 
-# Diffie-Hellmanパラメータの生成
-if [ ! -f "$DH_PARAM" ]; then
-    echo -e "${BRIGHT_YELLOW}Generating Diffie-Hellman parameters...${RESET}"
-    openssl dhparam -out $DH_PARAM 2048
-else
-    echo -e "${BRIGHT_YELLOW}Diffie-Hellman parameters already exist.${RESET}"
-fi
-
 # Nginxのソースコードとインストール
 NGINX_DIR="/usr/local/src/nginx-$NGINX_VERSION"
 if [ ! -d "$NGINX_DIR" ]; then
-    echo -e "${BRIGHT_YELLOW}Downloading Nginx $NGINX_VERSION...${RESET}"
+    echo -e "${BRIGHT_BLUE}Downloading Nginx $NGINX_VERSION...${RESET}"
     cd /usr/local/src
     wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz
     tar -zxvf nginx-$NGINX_VERSION.tar.gz
 
-    echo -e "${BRIGHT_YELLOW}Installing Nginx $NGINX_VERSION...${RESET}"
+    echo -e "${BRIGHT_BLUE}Installing Nginx $NGINX_VERSION...${RESET}"
     cd nginx-$NGINX_VERSION
     ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/lock/nginx.lock --with-http_ssl_module --with-http_v2_module --with-openssl=/usr/local/src/openssl-1.1.1k
     make
@@ -86,7 +78,7 @@ else
 fi
 
 # 必要なディレクトリとファイルの作成
-echo -e "${BRIGHT_YELLOW}Setting up necessary directories and files...${RESET}"
+echo -e "${BRIGHT_BLUE}Setting up necessary directories and files...${RESET}"
 mkdir -p /etc/nginx/conf.d
 mkdir -p /etc/nginx/default.d
 mkdir -p /var/log/nginx
@@ -99,7 +91,7 @@ source ~/.bashrc
 # systemdユニットファイルの作成
 NGINX_SERVICE="/etc/systemd/system/nginx.service"
 if [ ! -f "$NGINX_SERVICE" ]; then
-    echo -e "${BRIGHT_YELLOW}Creating systemd unit file for Nginx...${RESET}"
+    echo -e "${BRIGHT_BLUE}Creating systemd unit file for Nginx...${RESET}"
     bash -c 'cat << EOF > /etc/systemd/system/nginx.service
 [Unit]
 Description=A high performance web server and a reverse proxy server
@@ -126,13 +118,21 @@ systemctl daemon-reload
 systemctl start nginx
 systemctl enable nginx
 
+# Diffie-Hellmanパラメータの生成
+if [ ! -f "$DH_PARAM" ]; then
+    echo -e "${BRIGHT_BLUE}Generating Diffie-Hellman parameters...${RESET}"
+    openssl dhparam -out $DH_PARAM 2048
+else
+    echo -e "${BRIGHT_YELLOW}Diffie-Hellman parameters already exist.${RESET}"
+fi
+
 # Nginxの設定ファイルをコピー
-echo -e "${BRIGHT_YELLOW}Copying Nginx configuration files...${RESET}"
+echo -e "${BRIGHT_BLUE}Copying Nginx configuration files...${RESET}"
 cp -f "$SCRIPT_DIR/conf/host_nginx.conf" /etc/nginx/nginx.conf
 cp -f "$SCRIPT_DIR/conf/host_portfolio.conf" /etc/nginx/conf.d/host_portfolio.conf
 
 # Nginxの設定テストとリロード
-echo -e "${BRIGHT_YELLOW}Testing and reloading Nginx...${RESET}"
+echo -e "${BRIGHT_BLUE}Testing and reloading Nginx...${RESET}"
 nginx -t && systemctl reload nginx
 
 echo -e "${BRIGHT_GREEN}Nginx Setup Successfully.${RESET}"
