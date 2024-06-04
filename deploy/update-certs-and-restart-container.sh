@@ -15,9 +15,6 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CERTS_ENV_FILE="$SCRIPT_DIR/env/.env.cert"
 UPDATE_CERTS_ENV_FILE="$SCRIPT_DIR/env/.env.update-certs-and-restart-container"
 
-# ログファイルのパス
-LOG_FILE="/var/log/portfolio/cert_update.log"
-
 # .env.certファイルの存在確認
 if [ -f "$CERTS_ENV_FILE" ]; then
     set -a
