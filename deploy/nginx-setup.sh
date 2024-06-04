@@ -128,8 +128,8 @@ systemctl enable nginx
 
 # Nginxの設定ファイルをコピー
 echo -e "${BRIGHT_YELLOW}Copying Nginx configuration files...${RESET}"
-cp -f "$SCRIPT_DIR/host_nginx.conf" /etc/nginx/nginx.conf
-cp -f "$SCRIPT_DIR/host_portfolio.conf" /etc/nginx/conf.d/host_portfolio.conf
+cp -f "$SCRIPT_DIR/conf/host_nginx.conf" /etc/nginx/nginx.conf
+cp -f "$SCRIPT_DIR/conf/host_portfolio.conf" /etc/nginx/conf.d/host_portfolio.conf
 
 # Nginxの設定テストとリロード
 echo -e "${BRIGHT_YELLOW}Testing and reloading Nginx...${RESET}"
