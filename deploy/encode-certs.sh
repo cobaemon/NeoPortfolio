@@ -13,7 +13,7 @@ RESET='\033[0m'
 # スクリプトのディレクトリを基準にパスを設定
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 CERTS_ENV_FILE="$SCRIPT_DIR/env/.env.cert"
-ENCODE_CERTS_ENV_FILE="$SCRIPT_DIR/.env.encode-certs"
+ENCODE_CERTS_ENV_FILE="$SCRIPT_DIR/env/.env.encode-certs"
 
 echo -e "${BRIGHT_BLUE}Certificate and key encoding start.${RESET}"
 
