@@ -18,10 +18,14 @@ echo -e "${BRIGHT_CYAN}Deploy Start.${RESET}"
 echo -e "${BRIGHT_CYAN}Setting execute permissions for deploy directory scripts...${RESET}"
 chmod +x "${SCRIPT_DIR}/deploy/initialization.sh"
 chmod +x "${SCRIPT_DIR}/deploy/systemclock-setup.sh"
+chmod +x "${SCRIPT_DIR}/deploy/docker-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/iptables-setup.sh"
 
 # 初期化
 bash "${SCRIPT_DIR}/deploy/initialization.sh"
+
+# Dockerの設定
+bash "${SCRIPT_DIR}/deploy/docker-setup.sh"
 
 # systemctlの設定
 bash "${SCRIPT_DIR}/deploy/systemclock-setup.sh"
