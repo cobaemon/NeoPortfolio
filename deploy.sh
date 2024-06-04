@@ -20,6 +20,8 @@ chmod +x "${SCRIPT_DIR}/deploy/initialization.sh"
 chmod +x "${SCRIPT_DIR}/deploy/systemclock-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/docker-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/iptables-setup.sh"
+chmod +x "${SCRIPT_DIR}/deploy/openssl-setup.sh"
+chmod +x "${SCRIPT_DIR}/deploy/nginx-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/certbot-setup.sh"
 chmod +x "${SCRIPT_DIR}/deploy/encode-certs.sh"
 chmod +x "${SCRIPT_DIR}/deploy/update-certs-and-restart-container.sh"
@@ -36,7 +38,13 @@ bash "${SCRIPT_DIR}/deploy/systemclock-setup.sh"
 # iptablesの設定
 bash "${SCRIPT_DIR}/deploy/iptables-setup.sh"
 
-# iptablesの設定
+# opensslの設定
+bash "${SCRIPT_DIR}/deploy/openssl-setup.sh"
+
+# nginxの設定
+bash "${SCRIPT_DIR}/deploy/nginx-setup.sh"
+
+# certbotの設定
 bash "${SCRIPT_DIR}/deploy/certbot-setup.sh"
 
 echo -e "${BRIGHT_GREEN}Deployment completed successfully.${RESET}"
