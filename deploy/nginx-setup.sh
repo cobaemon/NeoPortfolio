@@ -117,6 +117,10 @@ WantedBy=multi-user.target
 EOF'
 fi
 
+# Nginxの設定ファイルをコピー
+echo -e "${BRIGHT_BLUE}Copying Nginx configuration files...${RESET}"
+cp -f "$SCRIPT_DIR/conf/host_portfolio_pre_certbot.conf" /etc/nginx/conf.d/host_portfolio.conf
+
 # systemdデーモンのリロード
 systemctl daemon-reload
 
@@ -131,10 +135,6 @@ if [ ! -f "$DH_PARAM" ]; then
 else
     echo -e "${BRIGHT_YELLOW}Diffie-Hellman parameters already exist.${RESET}"
 fi
-
-# Nginxの設定ファイルをコピー
-echo -e "${BRIGHT_BLUE}Copying Nginx configuration files...${RESET}"
-cp -f "$SCRIPT_DIR/conf/host_portfolio_pre_certbot.conf" /etc/nginx/conf.d/host_portfolio.conf
 
 # Nginxの設定テストとリロード
 echo -e "${BRIGHT_BLUE}Testing and reloading Nginx...${RESET}"
