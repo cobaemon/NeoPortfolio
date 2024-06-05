@@ -65,7 +65,7 @@ CERTBOT_OUTPUT=$(certbot certificates --cert-name "$DOMAIN_NAME" 2>&1)
 
 if echo "$CERTBOT_OUTPUT" | grep -q "No certificates found"; then
     echo -e "${BRIGHT_BLUE}Obtaining new certificate for ${DOMAIN_NAME}...${RESET}"
-    certbot --nginx -d "$DOMAIN_NAME" --non-interactive --agree-tos
+    certbot --nginx -d "$DOMAIN_NAME" --non-interactive --agree-tos --email "$EMAIL"
 else
     echo -e "${BRIGHT_BLUE}Updating existing certificate for ${DOMAIN_NAME}...${RESET}"
     certbot renew --cert-name "$DOMAIN_NAME"
