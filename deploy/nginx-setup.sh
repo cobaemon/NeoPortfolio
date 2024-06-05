@@ -60,6 +60,12 @@ elif [ "$OS" = "centos" ]; then
     $PKG_MANAGER install -y pcre pcre-devel zlib zlib-devel make
 fi
 
+# nginxユーザーが存在しない場合に作成
+if ! id -u nginx &>/dev/null; then
+    echo -e "${BRIGHT_BLUE}Creating nginx user...${RESET}"
+    sudo useradd -r -s /sbin/nologin nginx
+fi
+
 # Nginxのソースコードとインストール
 NGINX_DIR="/usr/local/src/nginx-$NGINX_VERSION"
 if [ ! -d "$NGINX_DIR" ]; then
